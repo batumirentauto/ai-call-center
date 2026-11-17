@@ -1,0 +1,9 @@
+{
+  "name": "autoagent-ai",
+  "version": "1.0.0",
+  "description": "AutoAgent AI - Sales AI for car import and trade-in",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
