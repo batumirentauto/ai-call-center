@@ -60,3 +60,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background-color: #ffffff !important;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
 }
+
+.re-track-card.active {
+  border-color: #f59e0b !important;
+  background-color: #fffbeb !important;
+  box-shadow: 0 4px 6px -1px rgb(245 158 11 / 0.1), 0 2px 4px -2px rgb(245 158 11 / 0.1);
+}

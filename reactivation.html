@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>AutoAgent AI — Реанимация забытых и «мертвых» лидов для автобизнеса</title>
+  <meta name="description" content="Достаньте от 3 до 7 закрытых сделок из вашей базы «мертвых» автолидов в CRM. Голосовой ИИ прозванивает базу за 24 часа. Первые 100 контактов — бесплатно.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              900: '#0c4a6e',
+            },
+            dark: {
+              900: '#0B0F17',
+              800: '#151C28',
+              700: '#232D3F',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FBFBFD] text-slate-800 antialiased selection:bg-sky-100 selection:text-sky-900 overflow-x-hidden">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 shrink-0 group">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+          <i data-lucide="refresh-cw" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span class="text-lg sm:text-xl font-bold tracking-tight text-slate-900">AutoAgent</span>
+          <span class="text-[10px] sm:text-[11px] font-extrabold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 uppercase tracking-wider">Reactivation</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-slate-600">
+        <a href="#why-dead-leads" class="hover:text-slate-900 transition-colors whitespace-nowrap">Деньги в базе</a>
+        <a href="#live-demo" class="hover:text-slate-900 transition-colors whitespace-nowrap">Примеры звонков</a>
+        <a href="#calculator" class="hover:text-slate-900 transition-colors whitespace-nowrap">Калькулятор выручки</a>
+        <a href="#scenarios" class="hover:text-slate-900 transition-colors whitespace-nowrap">Сценарии дожима</a>
+        <a href="#faq" class="hover:text-slate-900 transition-colors whitespace-nowrap">FAQ</a>
+      </nav>
+
+      <!-- Right Block (Desktop Phone & CTA + Mobile Hamburger) -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Live Call Link with Pulse -->
+        <a href="tel:+78005553535" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/80 hover:border-slate-300 bg-slate-50/80 hover:bg-slate-100/80 text-slate-800 transition-all group whitespace-nowrap">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="text-xs text-slate-500 font-medium">ИИ на связи:</span>
+          <span class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-sky-700">+7 (800) 555-35-35</span>
+        </a>
+
+        <!-- Desktop CTA Button -->
+        <a href="#testdrive" class="hidden md:inline-flex items-center justify-center px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-all whitespace-nowrap">
+          Реанимировать 100 лидов
+        </a>
+
+        <!-- Mobile Phone Quick Button -->
+        <a href="tel:+78005553535" class="sm:hidden w-9 h-9 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 flex items-center justify-center" aria-label="Позвонить ИИ">
+          <i data-lucide="phone-call" class="w-4 h-4"></i>
+        </a>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 bg-white text-slate-700 flex items-center justify-center hover:bg-slate-50 transition-colors focus:outline-none" aria-label="Меню">
+          <i id="menu-icon-bars" data-lucide="menu" class="w-5 h-5"></i>
+          <i id="menu-icon-close" data-lucide="x" class="w-5 h-5 hidden"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden border-t border-slate-100 bg-white/98 px-4 pt-3 pb-6 shadow-xl transition-all">
+      <div class="flex flex-col space-y-3 text-sm font-semibold text-slate-700">
+        <a href="#why-dead-leads" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Деньги в спящей базе</a>
+        <a href="#live-demo" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Примеры звонков реанимации</a>
+        <a href="#calculator" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Калькулятор выручки</a>
+        <a href="#scenarios" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Сценарии и поводы звонка</a>
+        <a href="#faq" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Вопросы и ответы</a>
+        
+        <div class="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+          <a href="tel:+78005553535" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Позвонить ИИ-агенту: +7 (800) 555-35-35
+          </a>
+          <a href="#testdrive" onclick="closeMobileMenu()" class="w-full text-center px-4 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm shadow-md">
+            Реанимировать 100 лидов бесплатно
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section: Reactivation Focus -->
+  <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden">
+    <!-- Subtle Background Glows -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-amber-100/30 via-transparent to-transparent -z-10 pointer-events-none blur-3xl"></div>
+    <div class="absolute top-40 right-10 w-72 h-72 bg-sky-100/30 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Target Tag -->
+      <div class="flex justify-center mb-5 md:mb-6">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[11px] sm:text-xs font-semibold text-amber-800 text-center">
+          <i data-lucide="database-zap" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
+          <span>Монетизация архива CRM: старые заявки, «подумаю», недозвоны и отказники</span>
+        </div>
+      </div>
+
+      <!-- Main Heading: REACTIVATION (2 balanced lines without hanging words or clipped descenders) -->
+      <div class="text-center max-w-4xl mx-auto mb-6 md:mb-8">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-extrabold tracking-tight text-slate-900 leading-tight">
+          <span class="block">Реанимация спящей базы автолидов:</span>
+          <span class="block mt-1 sm:mt-1.5 pb-2 bg-gradient-to-r from-amber-600 via-orange-600 to-sky-600 bg-clip-text text-transparent">от&nbsp;3 до&nbsp;7 закрытых сделок из&nbsp;забытых контактов</span>
+        </h1>
+        <p class="mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+          Вы уже заплатили за этих лидов в рекламе. Голосовой ИИ прозвонит 1&nbsp;000 контактов за 2 часа с актуальными инфоповодами (падение курсов, проходные года, льготный утиль) и вернет вам готовых к сделке клиентов.
+        </p>
+      </div>
+
+      <!-- Hero CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-7 md:mb-8">
+        <a href="#testdrive" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 sm:px-8 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-lg shadow-slate-900/10 hover:-translate-y-0.5 transition-all text-center">
+          <span>Реанимировать 100 лидов бесплатно</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-amber-400"></i>
+        </a>
+        <a href="#live-demo" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl text-sm sm:text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-sm transition-all text-center">
+          <i data-lucide="play-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-amber-600"></i>
+          <span>Слушать звонки реанимации</span>
+        </a>
+      </div>
+
+      <!-- Live Test Call Badge -->
+      <div class="flex justify-center mb-12 md:mb-16">
+        <div class="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-emerald-50/90 border border-emerald-200/80 text-xs sm:text-sm text-slate-700 shadow-sm text-center">
+          <span class="flex items-center gap-1.5 font-bold text-emerald-800 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Послушайте голос вживую:
+          </span>
+          <span class="text-slate-600">наберите <a href="tel:+78005553535" class="font-bold text-slate-900 hover:text-emerald-700 underline decoration-emerald-300 underline-offset-2">+7 (800) 555-35-35</a> — трубку снимет ИИ</span>
+        </div>
+      </div>
+
+      <!-- Stats / Trust Counters for Reactivation -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto pt-6 border-t border-slate-200/80">
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">4 – 8%</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Возврат спящих лидов на созвон</div>
+        </div>
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">2 часа</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Скорость обзвона 1 000 контактов</div>
+        </div>
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">0 ₽</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Затрат на рекламу для новых сделок</div>
+        </div>
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">100 шт</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Бесплатный пилотный обзвон</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Problem / Why Dead Leads Section -->
+  <section id="why-dead-leads" class="py-16 md:py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-amber-600 mb-2">Деньги под ногами</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Почему в вашем архиве CRM закопано от 1 000 000 ₽ чистой прибыли</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        
+        <!-- Card 1 -->
+        <div class="bg-slate-50 rounded-2xl p-6 sm:p-7 border border-slate-200/90 relative group hover:border-slate-300 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center mb-5 sm:mb-6">
+            <i data-lucide="archive" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Забытые лиды по 3 000 ₽</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Полгода назад клиент хотел Li Auto или BMW, но испугался утильсбора или колебания курса. Вы заплатили за его клик, а менеджер просто закрыл сделку со статусом «Отказ».
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-200 text-xs font-semibold text-rose-700">
+            Реальность: 40% из них до сих пор не купили авто и ждут предложения
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-slate-50 rounded-2xl p-6 sm:p-7 border border-slate-200/90 relative group hover:border-slate-300 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center mb-5 sm:mb-6">
+            <i data-lucide="user-x" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Менеджеры саботируют дожим</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Живым менеджерам лень звонить по старой базе: «Там никто не берет, там одни отказники». Они ждут свежий горячий трафик, сливая деньги на повторную рекламу.
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-200 text-xs font-semibold text-amber-700">
+            Реальность: менеджер сделает 20 звонков и устанет, ИИ сделает 1 000 без усталости
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-slate-50 rounded-2xl p-6 sm:p-7 border border-slate-200/90 relative group hover:border-slate-300 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center mb-5 sm:mb-6">
+            <i data-lucide="trending-up" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Сделки с нулевым CPL</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Каждая закрытая сделка из реанимированной базы приносит чистую комиссию брокера (100–250 тыс. ₽) вообще без рекламных расходов на Яндекс или Авито.
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-200 text-xs font-semibold text-emerald-700">
+            Итог: окупаемость проекта уже со второй закрытой сделки
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Demo Preview (Reactivation Audio Calls) -->
+  <section id="live-demo" class="py-16 md:py-20 bg-[#FBFBFD]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-3">
+          <i data-lucide="headphones" class="w-3.5 h-3.5"></i>
+          Живые примеры реанимации
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Как ИИ мягко возвращает клиентов в воронку</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600">
+          Послушайте, как естественно звучит звонок. ИИ не спамит «купите авто», а заходит с сильного инфоповода: падение курса валют, новые проходные года или появление льготы.
+        </p>
+      </div>
+
+      <!-- Demo Container with Sidebar Tracks and Player -->
+      <div class="max-w-5xl mx-auto bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 lg:p-8 shadow-sm">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Tracks Playlist (Left) -->
+          <div class="lg:col-span-5 space-y-2.5">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block px-1 mb-1">Сценарии реанимации:</span>
+            
+            <!-- Track 1 -->
+            <div onclick="selectReactivationTrack(0)" id="re-track-0" class="re-track-card active p-3 sm:p-3.5 rounded-2xl bg-slate-50 border border-amber-400 shadow-sm cursor-pointer transition-all hover:border-amber-500">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] sm:text-xs font-bold text-amber-700 uppercase tracking-wider">Инфоповод: Курс валюты</span>
+                <span class="text-[11px] text-slate-400 font-mono">1:20</span>
+              </div>
+              <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">«Юань упал — цена на Geely Monjaro снизилась на 230 000 ₽»</h5>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Звонок лиду, который ушел думать 2 месяца назад</p>
+            </div>
+
+            <!-- Track 2 -->
+            <div onclick="selectReactivationTrack(1)" id="re-track-1" class="re-track-card p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200 cursor-pointer transition-all hover:bg-slate-50 hover:border-slate-300">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] sm:text-xs font-bold text-sky-700 uppercase tracking-wider">Корея: Проходной год</span>
+                <span class="text-[11px] text-slate-400 font-mono">1:35</span>
+              </div>
+              <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">«Santa Fe 2021 стал проходным — пошлина упала в 1.8 раза»</h5>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Реанимация фанатов корейского дизеля с Encar</p>
+            </div>
+
+            <!-- Track 3 -->
+            <div onclick="selectReactivationTrack(2)" id="re-track-2" class="re-track-card p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200 cursor-pointer transition-all hover:bg-slate-50 hover:border-slate-300">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] sm:text-xs font-bold text-purple-700 uppercase tracking-wider">Спящий Trade-In</span>
+                <span class="text-[11px] text-slate-400 font-mono">1:15</span>
+              </div>
+              <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">«Повышенный выкуп авто в счет заказа из Китая»</h5>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Клиент не хотел возиться с самостоятельной продажей</p>
+            </div>
+
+            <!-- Track 4 -->
+            <div onclick="selectReactivationTrack(3)" id="re-track-3" class="re-track-card p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200 cursor-pointer transition-all hover:bg-slate-50 hover:border-slate-300">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] sm:text-xs font-bold text-emerald-700 uppercase tracking-wider">Мягкий аудит базы</span>
+                <span class="text-[11px] text-slate-400 font-mono">0:58</span>
+              </div>
+              <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">«Уже купили автомобиль или вопрос еще актуален?»</h5>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Квалификация базы без навязчивости и негатива</p>
+            </div>
+          </div>
+
+          <!-- Active Player & Live Transcript (Right) -->
+          <div class="lg:col-span-7 bg-slate-50 rounded-2xl border border-slate-200 p-4 sm:p-6 flex flex-col justify-between shadow-sm">
+            <div>
+              <!-- Track Title & Badge -->
+              <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-200 gap-2">
+                <div>
+                  <span id="re-player-category" class="text-[11px] sm:text-xs font-bold text-amber-600 uppercase tracking-wider">Инфоповод: Курс валюты</span>
+                  <h4 id="re-player-title" class="text-sm sm:text-base md:text-lg font-bold text-slate-900 mt-0.5">«Юань упал — цена на Geely Monjaro снизилась на 230 000 ₽»</h4>
+                </div>
+                <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] sm:text-xs font-bold shrink-0">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>HD Голос</span>
+                </div>
+              </div>
+
+              <!-- Waveform & Controls -->
+              <div class="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6">
+                <div class="flex items-center gap-3 sm:gap-4">
+                  <button id="re-audio-play-btn" onclick="toggleReactivationAudio()" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-amber-600 hover:bg-amber-700 text-white flex items-center justify-center shadow-md shrink-0 transition-transform active:scale-95" aria-label="Воспроизвести">
+                    <i id="re-audio-icon" data-lucide="play" class="w-5 h-5 sm:w-6 sm:h-6 ml-0.5"></i>
+                  </button>
+                  
+                  <div class="w-full">
+                    <div class="flex items-center justify-between text-xs text-slate-500 font-mono mb-2">
+                      <span id="re-audio-current-time">00:00</span>
+                      <div class="flex items-center gap-1">
+                        <span class="w-1 h-3 bg-amber-400 rounded-full animate-bounce"></span>
+                        <span class="w-1 h-5 bg-amber-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                        <span class="w-1 h-2 bg-amber-300 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                      </div>
+                      <span id="re-audio-total-time">01:20</span>
+                    </div>
+                    
+                    <!-- Progress bar -->
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden relative cursor-pointer" onclick="seekReactivationAudio(event)">
+                      <div id="re-audio-progress" class="bg-gradient-to-r from-amber-500 to-orange-500 h-full w-[0%] transition-all duration-200"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Dialog Transcript -->
+              <div class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-600 max-h-56 sm:max-h-64 overflow-y-auto pr-1" id="re-player-transcript">
+                <!-- Transcript populated by JS -->
+              </div>
+            </div>
+
+            <!-- Bottom Callout inside player -->
+            <div class="mt-4 sm:mt-6 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <span class="text-xs text-slate-500">Хотите протестировать ИИ на своих 100 отказных лидах?</span>
+              <a href="#testdrive" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 text-amber-900 hover:bg-amber-200 text-xs font-bold transition-colors">
+                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                Попробовать 100 контактов бесплатно
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive ROI Calculator: Dormant Revenue -->
+  <section id="calculator" class="py-16 md:py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-amber-600 mb-2">Оцифровка архива</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Калькулятор: сколько денег спит в вашей базе прямо сейчас</p>
+        <p class="mt-3 text-sm sm:text-base text-slate-600">Укажите размер вашей базы старых лидов и посмотрите гарантированный потенциал выручки.</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
+          
+          <!-- Sliders -->
+          <div class="space-y-6">
+            <!-- Slider 1 -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs sm:text-sm font-semibold text-slate-700">Контактов в архиве CRM (за 1–12 мес):</label>
+                <span id="re-leads-val" class="text-xs sm:text-sm font-bold text-amber-700 bg-amber-50 px-2 sm:px-2.5 py-1 rounded-lg border border-amber-200">1 000 лидов</span>
+              </div>
+              <input type="range" id="input-re-leads" min="200" max="5000" step="100" value="1000" class="w-full accent-amber-600 cursor-pointer" oninput="calculateReactivationROI()">
+              <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                <span>200</span>
+                <span>2 500</span>
+                <span>5 000+</span>
+              </div>
+            </div>
+
+            <!-- Slider 2 -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs sm:text-sm font-semibold text-slate-700">Средняя комиссия брокера со сделки:</label>
+                <span id="re-margin-val" class="text-xs sm:text-sm font-bold text-amber-700 bg-amber-50 px-2 sm:px-2.5 py-1 rounded-lg border border-amber-200">140 000 ₽</span>
+              </div>
+              <input type="range" id="input-re-margin" min="60000" max="300000" step="10000" value="140000" class="w-full accent-amber-600 cursor-pointer" oninput="calculateReactivationROI()">
+              <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                <span>60 000 ₽</span>
+                <span>150 000 ₽</span>
+                <span>300 000 ₽</span>
+              </div>
+            </div>
+
+            <!-- Slider 3 -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs sm:text-sm font-semibold text-slate-700">Оценка конверсии в реанимацию:</label>
+                <span id="re-rate-val" class="text-xs sm:text-sm font-bold text-emerald-700 bg-emerald-50 px-2 sm:px-2.5 py-1 rounded-lg border border-emerald-200">~4.5% (стандарт)</span>
+              </div>
+              <input type="range" id="input-re-rate" min="2" max="8" step="0.5" value="4.5" class="w-full accent-emerald-600 cursor-pointer" oninput="calculateReactivationROI()">
+              <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                <span>2% (пессимистично)</span>
+                <span>4.5% (средне)</span>
+                <span>8% (оптимистично)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculation Result Card -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 shadow-sm text-center md:text-left space-y-5">
+            <div>
+              <span class="text-[11px] uppercase font-bold text-slate-500 tracking-wider">Реанимированных теплых клиентов</span>
+              <div id="re-deals-count" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">~45 клиентов</div>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Вернутся на этап повторного расчета и выбора комплектации</p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100">
+              <span class="text-[11px] uppercase font-bold text-emerald-600 tracking-wider">Потенциальная чистая комиссия</span>
+              <div id="re-profit-total" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-emerald-600 mt-1">от 1 260 000 ₽</div>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Без копейки дополнительных затрат на интернет-рекламу</p>
+            </div>
+
+            <a href="#testdrive" class="block w-full text-center py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors">
+              Реализовать этот потенциал бесплатно →
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scenarios Grid -->
+  <section id="scenarios" class="py-16 md:py-20 bg-[#FBFBFD]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-amber-600 mb-2">Технология реактивации</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">4 повода для звонка, на которые клиенты реагируют с благодарностью</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 font-bold">1</div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">Колебание курсов валют</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              «Вы ранее рассчитывали авто из Китая, когда юань был по 13.8. Сейчас курс скорректировался, и такая же машина стала дешевле на ~200 000 ₽. Актуализировать расчет?»
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0 font-bold">2</div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">Наступление проходного года</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Для авто из Кореи и Германии возраст 3–5 лет дает минимальную таможенную ставку. ИИ отслеживает даты выпуска и звонит клиентам, когда машина переходит в проходной статус.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center shrink-0 font-bold">3</div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">Специальные условия по Trade-In</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Предложение зачесть старое авто клиента с повышенной оценкой под выкуп автовоза. Снимает главный барьер тех, кто не хотел заниматься самостоятельной продажей.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 font-bold">4</div>
+          <div>
+            <h4 class="text-base font-bold text-slate-900 mb-1">Формирование сборного автовоза</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              «У нас закрывается бронь на автовоз из Хоргоса или Владивостока на пятницу со скидкой на логистику. Хотели уточнить статус вашего выбора».
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lead Capture / Reactivation Test Section -->
+  <section id="testdrive" class="py-16 md:py-20 bg-white border-t border-slate-200/80 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-gradient-to-b from-slate-900 to-dark-900 rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-12 text-white shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-semibold mb-3">
+            <i data-lucide="gift" class="w-3.5 h-3.5"></i>
+            Бесплатный пилот
+          </div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">Реанимируйте первые 100 контактов за наш счет</h2>
+          <p class="mt-3 text-xs sm:text-sm md:text-base text-slate-300">
+            Выгрузите из CRM список из 100 старых или отказных заявок. Мы согласуем с вами скрипт, прозвоним их за 24 часа и передадим вам горячих клиентов, готовых к сделке.
+          </p>
+        </div>
+
+        <form id="re-lead-form" onsubmit="handleReactivationSubmit(event)" class="max-w-xl mx-auto space-y-3.5 sm:space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Ваше имя</label>
+              <input type="text" required placeholder="Константин" class="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Телефон / WhatsApp</label>
+              <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Примерный размер архивной базы в CRM</label>
+            <select class="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+              <option value="300-1000">От 300 до 1 000 контактов</option>
+              <option value="1000-3000">От 1 000 до 3 000 контактов</option>
+              <option value="3000+">Более 3 000 контактов</option>
+              <option value="100-300">Менее 300 контактов</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-slate-900 bg-white hover:bg-slate-100 shadow-lg shadow-amber-500/10 hover:-translate-y-0.5 transition-all">
+            Запустить реанимацию: 100 лидов бесплатно
+          </button>
+
+          <p class="text-center text-[11px] sm:text-xs text-slate-400 pt-2">
+            🔒 Без спама и без привязки карты. Согласуем сценарий звонка перед запуском.
+          </p>
+        </form>
+
+        <div id="re-form-success" class="hidden text-center p-6 bg-emerald-900/40 border border-emerald-500/40 rounded-2xl mt-4">
+          <i data-lucide="check-circle" class="w-10 h-10 text-emerald-400 mx-auto mb-2"></i>
+          <h4 class="text-base sm:text-lg font-bold text-white">Заявка успешно принята!</h4>
+          <p class="text-xs text-slate-300 mt-1">Мы свяжемся с вами в Telegram/WhatsApp для согласования скрипта обзвона 100 контактов.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-8 sm:py-10 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-[10px]">AI</div>
+        <span class="font-bold text-slate-800">AutoAgent.AI</span>
+        <span>— Модуль реактивации базы автолидов</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Линия ИИ-ассистента: <a href="tel:+78005553535" class="font-bold text-slate-800 hover:text-amber-600">+7 (800) 555-35-35</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="reactivation.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconBars = document.getElementById('menu-icon-bars');
+      const iconClose = document.getElementById('menu-icon-close');
+      
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        iconBars.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        iconBars.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconBars = document.getElementById('menu-icon-bars');
+      const iconClose = document.getElementById('menu-icon-close');
+      if (menu) menu.classList.add('hidden');
+      if (iconBars) iconBars.classList.remove('hidden');
+      if (iconClose) iconClose.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
