@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>AutoAgent AI — ИИ-отдел продаж для автоимпорта: перехват лида за 15 секунд и +35% к сделкам</title>
+  <meta name="description" content="ИИ-отдел продаж для автоимпорта: перехват лида за 15 секунд, безошибочный расчет растаможки и +35% к сделкам. Тест-драйв: 100 лидов бесплатно.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              900: '#0c4a6e',
+            },
+            dark: {
+              900: '#0B0F17',
+              800: '#151C28',
+              700: '#232D3F',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FBFBFD] text-slate-800 antialiased selection:bg-sky-100 selection:text-sky-900 overflow-x-hidden">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 shrink-0 group">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
+          <i data-lucide="car-front" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span class="text-lg sm:text-xl font-bold tracking-tight text-slate-900">AutoAgent</span>
+          <span class="text-[10px] sm:text-[11px] font-extrabold px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 uppercase tracking-wider">AI</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-slate-600">
+        <a href="#capabilities" class="hover:text-slate-900 transition-colors whitespace-nowrap">Возможности</a>
+        <a href="#live-demo" class="hover:text-slate-900 transition-colors whitespace-nowrap">Примеры звонков</a>
+        <a href="#calculator" class="hover:text-slate-900 transition-colors whitespace-nowrap">Калькулятор</a>
+        <a href="#comparison" class="hover:text-slate-900 transition-colors whitespace-nowrap">Сравнение</a>
+        <a href="#faq" class="hover:text-slate-900 transition-colors whitespace-nowrap">FAQ</a>
+      </nav>
+
+      <!-- Right Block (Desktop Phone & CTA + Mobile Hamburger) -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Live Call Link with Pulse (Hidden on mobile, visible on sm+) -->
+        <a href="tel:+78005553535" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/80 hover:border-slate-300 bg-slate-50/80 hover:bg-slate-100/80 text-slate-800 transition-all group whitespace-nowrap">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span class="text-xs text-slate-500 font-medium">ИИ на связи:</span>
+          <span class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-sky-700">+7 (800) 555-35-35</span>
+        </a>
+
+        <!-- Desktop CTA Button -->
+        <a href="#testdrive" class="hidden md:inline-flex items-center justify-center px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-sm transition-all whitespace-nowrap">
+          Тест-драйв
+        </a>
+
+        <!-- Mobile Phone Quick Button (Icon only) -->
+        <a href="tel:+78005553535" class="sm:hidden w-9 h-9 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 flex items-center justify-center" aria-label="Позвонить ИИ">
+          <i data-lucide="phone-call" class="w-4 h-4"></i>
+        </a>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-slate-200 bg-white text-slate-700 flex items-center justify-center hover:bg-slate-50 transition-colors focus:outline-none" aria-label="Меню">
+          <i id="menu-icon-bars" data-lucide="menu" class="w-5 h-5"></i>
+          <i id="menu-icon-close" data-lucide="x" class="w-5 h-5 hidden"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden border-t border-slate-100 bg-white/98 px-4 pt-3 pb-6 shadow-xl transition-all">
+      <div class="flex flex-col space-y-3 text-sm font-semibold text-slate-700">
+        <a href="#capabilities" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Возможности</a>
+        <a href="#live-demo" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Примеры звонков</a>
+        <a href="#calculator" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Калькулятор окупаемости</a>
+        <a href="#comparison" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Штатный брокер vs ИИ</a>
+        <a href="#faq" onclick="closeMobileMenu()" class="px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors">Вопросы и ответы</a>
+        
+        <div class="pt-3 border-t border-slate-100 flex flex-col gap-2.5">
+          <a href="tel:+78005553535" class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Позвонить ИИ-агенту: +7 (800) 555-35-35
+          </a>
+          <a href="#testdrive" onclick="closeMobileMenu()" class="w-full text-center px-4 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm shadow-md">
+            Запустить тест-драйв: 100 лидов
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section: VARIANT 1 (Compact 2-line Headline) -->
+  <section class="relative pt-10 pb-16 md:pt-16 md:pb-24 overflow-hidden">
+    <!-- Subtle Background Glows -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-100/40 via-transparent to-transparent -z-10 pointer-events-none blur-3xl"></div>
+    <div class="absolute top-40 right-10 w-72 h-72 bg-indigo-100/30 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Target Tag -->
+      <div class="flex justify-center mb-5 md:mb-6">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] sm:text-xs font-semibold text-slate-700 text-center">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-sky-600 shrink-0"></i>
+          <span>Разработано для автоимпорта (Китай, Корея, ОАЭ, Европа) и Trade-In</span>
+        </div>
+      </div>
+
+      <!-- Main Heading: VARIANT 1 -->
+      <div class="text-center max-w-4xl mx-auto mb-6 md:mb-8">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.18]">
+          ИИ-отдел продаж для автоимпорта: <br class="hidden sm:inline">
+          <span class="bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-700 bg-clip-text text-transparent">перехват лида за 15 секунд и +35% к сделкам</span>
+        </h1>
+        <p class="mt-4 md:mt-5 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
+          Мгновенно отвечает на звонки, в Авито и Telegram 24/7. Рассчитывает растаможку и утильсбор до рубля, оценивает Trade-In и передает брокерам готовых платить клиентов.
+        </p>
+      </div>
+
+      <!-- Hero CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-7 md:mb-8">
+        <a href="#testdrive" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 sm:px-8 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-white bg-slate-900 hover:bg-slate-800 shadow-lg shadow-slate-900/10 hover:-translate-y-0.5 transition-all text-center">
+          <span>Запустить тест-драйв: 100 лидов бесплатно</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 text-sky-400"></i>
+        </a>
+        <a href="#live-demo" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl text-sm sm:text-base font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 shadow-sm transition-all text-center">
+          <i data-lucide="play-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-sky-600"></i>
+          <span>Слушать примеры звонков</span>
+        </a>
+      </div>
+
+      <!-- Live Test Call Badge (Clean, non-intrusive) -->
+      <div class="flex justify-center mb-12 md:mb-16">
+        <div class="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-2xl sm:rounded-full bg-emerald-50/90 border border-emerald-200/80 text-xs sm:text-sm text-slate-700 shadow-sm text-center">
+          <span class="flex items-center gap-1.5 font-bold text-emerald-800 shrink-0">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            Проверьте вживую прямо сейчас:
+          </span>
+          <span class="text-slate-600">наберите <a href="tel:+78005553535" class="font-bold text-slate-900 hover:text-emerald-700 underline decoration-emerald-300 underline-offset-2">+7 (800) 555-35-35</a> — трубку снимет наш ИИ</span>
+        </div>
+      </div>
+
+      <!-- Stats / Trust Counters -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto pt-6 border-t border-slate-200/80">
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">15 сек</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Скорость перехвата лида 24/7</div>
+        </div>
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">100%</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Точность расчета пошлин и утиля</div>
+        </div>
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">+35%</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Рост конверсии в договор брокера</div>
+        </div>
+        <div class="text-center p-2 sm:p-3 bg-white sm:bg-transparent rounded-xl border sm:border-0 border-slate-100">
+          <div class="text-2xl sm:text-3xl font-extrabold text-slate-900">24 ч</div>
+          <div class="text-[11px] sm:text-xs text-slate-500 font-medium mt-1">Срок запуска под ваш автобизнес</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Demo Preview (Chat & Audio) -->
+  <section id="live-demo" class="py-16 md:py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-100 text-sky-700 text-xs font-semibold mb-3">
+          <i data-lucide="headphones" class="w-3.5 h-3.5"></i>
+          Живые примеры диалогов
+        </div>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Как наш ИИ разговаривает с реальными покупателями</h2>
+        <p class="mt-3 text-sm sm:text-base text-slate-600">
+          Послушайте записи звонков и посмотрите переписки. Естественные интонации, отсутствие задержек, глубокое знание таможни, комплектаций и регламентов импорта.
+        </p>
+      </div>
+
+      <!-- Demo Container with Sidebar Tracks and Player -->
+      <div class="max-w-5xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 lg:p-8 shadow-sm">
+        
+        <!-- Tab selector -->
+        <div class="flex flex-wrap gap-2 mb-6 sm:mb-8 border-b border-slate-200 pb-4">
+          <button onclick="switchMainDemo('audio')" id="btn-mode-audio" class="mode-tab-btn active px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all bg-white shadow-sm border border-slate-200 text-slate-900 flex items-center gap-1.5 sm:gap-2">
+            <i data-lucide="mic" class="w-4 h-4 text-emerald-600"></i>
+            <span>Записи голосовых звонков (Аудио)</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-700 font-bold hidden sm:inline">4 кейса</span>
+          </button>
+          <button onclick="switchMainDemo('chat')" id="btn-mode-chat" class="mode-tab-btn px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5 sm:gap-2">
+            <i data-lucide="message-square" class="w-4 h-4 text-sky-600"></i>
+            <span>Переписка в мессенджерах (Авито / TG)</span>
+          </button>
+        </div>
+
+        <!-- MODE 1: Audio Conversations Player Showcase -->
+        <div id="demo-mode-audio" class="block">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Tracks Playlist (Left) -->
+            <div class="lg:col-span-5 space-y-2.5">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block px-1 mb-1">Выберите сценарий звонка:</span>
+              
+              <!-- Track 1 -->
+              <div onclick="selectAudioTrack(0)" id="track-item-0" class="audio-track-card active p-3 sm:p-3.5 rounded-2xl bg-white border border-sky-300 shadow-sm cursor-pointer transition-all hover:border-sky-400">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] sm:text-xs font-bold text-sky-700 uppercase tracking-wider">Китай · Li Auto L9</span>
+                  <span class="text-[11px] text-slate-400 font-mono">1:28</span>
+                </div>
+                <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">Расчет Li L9 Ultra под ключ + растаможка</h5>
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Разбор пошлин, льготный утильсбор и срок доставки</p>
+              </div>
+
+              <!-- Track 2 -->
+              <div onclick="selectAudioTrack(1)" id="track-item-1" class="audio-track-card p-3 sm:p-3.5 rounded-2xl bg-white/70 border border-slate-200 cursor-pointer transition-all hover:bg-white hover:border-slate-300">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] sm:text-xs font-bold text-amber-700 uppercase tracking-wider">Отработка возражения</span>
+                  <span class="text-[11px] text-slate-400 font-mono">1:45</span>
+                </div>
+                <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">«Почему у других на 300 000 ₽ дешевле?»</h5>
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Объяснение серых схем Киргизии и риска доначислений</p>
+              </div>
+
+              <!-- Track 3 -->
+              <div onclick="selectAudioTrack(2)" id="track-item-2" class="audio-track-card p-3 sm:p-3.5 rounded-2xl bg-white/70 border border-slate-200 cursor-pointer transition-all hover:bg-white hover:border-slate-300">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] sm:text-xs font-bold text-purple-700 uppercase tracking-wider">Trade-In + Корея</span>
+                  <span class="text-[11px] text-slate-400 font-mono">1:15</span>
+                </div>
+                <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">Оценка Kia K5 в зачет нового авто с Encar</h5>
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Квалификация состояния, пробега и расчет доплаты</p>
+              </div>
+
+              <!-- Track 4 -->
+              <div onclick="selectAudioTrack(3)" id="track-item-3" class="audio-track-card p-3 sm:p-3.5 rounded-2xl bg-white/70 border border-slate-200 cursor-pointer transition-all hover:bg-white hover:border-slate-300">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] sm:text-xs font-bold text-emerald-700 uppercase tracking-wider">Лизинг для Юрлиц</span>
+                  <span class="text-[11px] text-slate-400 font-mono">1:35</span>
+                </div>
+                <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1">Zeekr 001 на ООО с полным НДС 20%</h5>
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Условия безналичной оплаты, факторинг и аванс</p>
+              </div>
+            </div>
+
+            <!-- Active Player & Live Transcript (Right) -->
+            <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-4 sm:p-6 flex flex-col justify-between shadow-sm">
+              <div>
+                <!-- Track Title & Badge -->
+                <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-100 gap-2">
+                  <div>
+                    <span id="player-category" class="text-[11px] sm:text-xs font-bold text-sky-600 uppercase tracking-wider">Китай · Li Auto L9</span>
+                    <h4 id="player-title" class="text-sm sm:text-base md:text-lg font-bold text-slate-900 mt-0.5">Расчет Li L9 Ultra под ключ + растаможка</h4>
+                  </div>
+                  <div class="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] sm:text-xs font-semibold shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>HD Голос</span>
+                  </div>
+                </div>
+
+                <!-- Waveform & Controls -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6">
+                  <div class="flex items-center gap-3 sm:gap-4">
+                    <button id="audio-play-btn" onclick="toggleAudioDemo()" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-sky-600 hover:bg-sky-700 text-white flex items-center justify-center shadow-md shrink-0 transition-transform active:scale-95" aria-label="Воспроизвести">
+                      <i id="audio-icon" data-lucide="play" class="w-5 h-5 sm:w-6 sm:h-6 ml-0.5"></i>
+                    </button>
+                    
+                    <div class="w-full">
+                      <div class="flex items-center justify-between text-xs text-slate-500 font-mono mb-2">
+                        <span id="audio-current-time">00:00</span>
+                        <div class="flex items-center gap-1">
+                          <span class="w-1 h-3 bg-sky-400 rounded-full animate-bounce"></span>
+                          <span class="w-1 h-5 bg-sky-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                          <span class="w-1 h-2 bg-sky-300 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                        </div>
+                        <span id="audio-total-time">01:28</span>
+                      </div>
+                      
+                      <!-- Progress bar -->
+                      <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden relative cursor-pointer" onclick="seekAudio(event)">
+                        <div id="audio-progress" class="bg-gradient-to-r from-sky-600 to-indigo-600 h-full w-[0%] transition-all duration-200"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Live Dialog Transcript with Speaker Tags -->
+                <div class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm text-slate-600 max-h-56 sm:max-h-64 overflow-y-auto pr-1" id="player-transcript">
+                  <!-- Transcript filled dynamically -->
+                </div>
+              </div>
+
+              <!-- Bottom Callout inside player -->
+              <div class="mt-4 sm:mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                <span class="text-xs text-slate-500">Хотите протестировать ИИ со своими каверзными вопросами?</span>
+                <a href="tel:+78005553535" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-xs font-bold transition-colors">
+                  <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+                  Позвонить +7 (800) 555-35-35
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- MODE 2: Messengers Chat Showcase -->
+        <div id="demo-mode-chat" class="hidden">
+          <div class="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-6 space-y-4 max-w-2xl mx-auto text-xs sm:text-sm">
+            <div class="flex items-start gap-2.5 sm:gap-3">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-700 shrink-0">Иван</div>
+              <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3 sm:p-3.5 text-slate-800 max-w-[85%]">
+                Добрый день! Сколько сейчас выйдет привезти Li L9 Ultra 2024 под ключ в Москву со всеми расходами и утилем?
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5 sm:gap-3 justify-end">
+              <div class="bg-sky-600 text-white rounded-2xl rounded-tr-none p-3 sm:p-3.5 max-w-[90%] shadow-sm">
+                <div class="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-sky-200 font-semibold mb-1">
+                  <span>AutoAgent AI</span> · <span>Ответ через 14 сек</span>
+                </div>
+                Здравствуйте, Иван! Li Auto L9 Ultra 2024 года с полным приводом и батареей 52.3 кВт·ч под ключ в Москву сейчас обходится в <strong>~6 450 000 ₽</strong>.
+                <div class="mt-2 pt-2 border-t border-sky-500/50 text-[11px] sm:text-xs space-y-0.5">
+                  <div>• Авто в Китае: 439 800 ¥ (~5 760 000 ₽)</div>
+                  <div>• Доставка и логистика: ~380 000 ₽</div>
+                  <div>• Таможня, СБКТС, ЭПТС: ~310 000 ₽</div>
+                  <div>• Утильсбор (льготный физлицо): 3 400 ₽</div>
+                </div>
+                <div class="mt-2 text-[11px] sm:text-xs">Планируете покупку на физлицо или на компанию с возвратом НДС?</div>
+              </div>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-bold shrink-0">ИИ</div>
+            </div>
+            <div class="flex items-start gap-2.5 sm:gap-3">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-700 shrink-0">Иван</div>
+              <div class="bg-slate-100 rounded-2xl rounded-tl-none p-3 sm:p-3.5 text-slate-800 max-w-[85%]">
+                На физлицо. А какие сроки доставки? И можно ли зафиксировать цену в рублях?
+              </div>
+            </div>
+            <div class="flex items-start gap-2.5 sm:gap-3 justify-end">
+              <div class="bg-sky-600 text-white rounded-2xl rounded-tr-none p-3 sm:p-3.5 max-w-[90%] shadow-sm">
+                Срок доставки автовозом до Москвы — <strong>25–35 дней</strong> с момента выкупа. Цену фиксируем в официальном договоре поручения, оплата инвойса идет напрямую через банк.<br><br>
+                Иван, у нас как раз сейчас формируется автовоз на 22 ноября. Удобно будет, если наш старший брокер перезвонит вам в течение 10 минут и пришлет 3 варианта с проверочными листами?
+              </div>
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-bold shrink-0">ИИ</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pains & Objections Section -->
+  <section class="py-16 md:py-20 bg-[#FBFBFD]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-rose-600 mb-2">Знакомая картина?</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Почему автобизнес теряет до 40% прибыли на отделе продаж</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        
+        <!-- Card 1 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm relative overflow-hidden group hover:border-slate-300 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center mb-5 sm:mb-6">
+            <i data-lucide="clock-alert" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Слитые заявки по 3 000 ₽</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Клиент оставляет заявку на Авито или сайте. Менеджер занят или на перерыве и отвечает через 40 минут. За это время покупатель уже внес аванс конкуренту.
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-rose-700">
+            Потери: сотни тысяч рублей рекламного бюджета ежемесячно
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm relative overflow-hidden group hover:border-slate-300 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center mb-5 sm:mb-6">
+            <i data-lucide="calculator" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Рутина и ошибки в расчетах</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Каждый второй лид просит: «посчитайте под ключ». Менеджер 20 минут копается в таблицах, путается в ставках утильсбора и курсе юаня, а «зевака» потом просто молчит.
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-amber-700">
+            Потери: до 4 часов рабочего времени каждого брокера ежедневно
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-sm relative overflow-hidden group hover:border-slate-300 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center mb-5 sm:mb-6">
+            <i data-lucide="user-x" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Человеческий фактор и текучка</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Менеджеры выгорают, забывают перезванивать через неделю, работают только с 10:00 до 19:00, а запросы из других часовых поясов приходят ночью.
+          </p>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs font-semibold text-purple-700">
+            Потери: постоянный найм, стресс и недополученная выручка
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive ROI Calculator -->
+  <section id="calculator" class="py-16 md:py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-sky-600 mb-2">Оцифровка выгоды</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Калькулятор: сколько денег вы теряете прямо сейчас</p>
+        <p class="mt-3 text-sm sm:text-base text-slate-600">Передвиньте ползунки под параметры вашего автобизнеса и оцените скрытый потенциал роста чистой прибыли.</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-slate-50 border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
+          
+          <!-- Sliders -->
+          <div class="space-y-6">
+            <!-- Slider 1 -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs sm:text-sm font-semibold text-slate-700">Входящих заявок в месяц:</label>
+                <span id="leads-val" class="text-xs sm:text-sm font-bold text-sky-600 bg-sky-50 px-2 sm:px-2.5 py-1 rounded-lg border border-sky-100">150 лидов</span>
+              </div>
+              <input type="range" id="input-leads" min="30" max="600" step="10" value="150" class="w-full accent-sky-600 cursor-pointer" oninput="calculateROI()">
+              <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                <span>30</span>
+                <span>300</span>
+                <span>600+</span>
+              </div>
+            </div>
+
+            <!-- Slider 2 -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs sm:text-sm font-semibold text-slate-700">Средняя комиссия со сделки:</label>
+                <span id="margin-val" class="text-xs sm:text-sm font-bold text-sky-600 bg-sky-50 px-2 sm:px-2.5 py-1 rounded-lg border border-sky-100">120 000 ₽</span>
+              </div>
+              <input type="range" id="input-margin" min="50000" max="300000" step="10000" value="120000" class="w-full accent-sky-600 cursor-pointer" oninput="calculateROI()">
+              <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                <span>50 000 ₽</span>
+                <span>150 000 ₽</span>
+                <span>300 000 ₽</span>
+              </div>
+            </div>
+
+            <!-- Slider 3 -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs sm:text-sm font-semibold text-slate-700">Время первого ответа сейчас:</label>
+                <span id="delay-val" class="text-xs sm:text-sm font-bold text-rose-600 bg-rose-50 px-2 sm:px-2.5 py-1 rounded-lg border border-rose-100">~25 минут</span>
+              </div>
+              <input type="range" id="input-delay" min="5" max="60" step="5" value="25" class="w-full accent-rose-600 cursor-pointer" oninput="calculateROI()">
+              <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mt-1">
+                <span>5 мин</span>
+                <span>30 мин</span>
+                <span>1 час+</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculation Result Card -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 shadow-sm text-center md:text-left space-y-5">
+            <div>
+              <span class="text-[11px] uppercase font-bold text-rose-500 tracking-wider">Упущенная выручка из-за задержек</span>
+              <div id="lost-revenue" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 mt-1">~540 000 ₽</div>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Ежемесячно уходит вашим более оперативным конкурентам</p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100">
+              <span class="text-[11px] uppercase font-bold text-emerald-600 tracking-wider">Потенциал роста с AutoAgent</span>
+              <div id="gain-revenue" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-emerald-600 mt-1">+480 000 ₽ / мес</div>
+              <p class="text-[11px] sm:text-xs text-slate-500 mt-1">За счет мгновенного ответа за 15 секунд и дожима 100% базы</p>
+            </div>
+
+            <a href="#testdrive" class="block w-full text-center py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors">
+              Рассчитать пилот для своего салона →
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- What We Offer / Capabilities -->
+  <section id="capabilities" class="py-16 md:py-20 bg-[#FBFBFD]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-sky-600 mb-2">Возможности платформы</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Все процессы автоброкера на автопилоте</p>
+        <p class="mt-3 text-sm sm:text-base text-slate-600">Мы не продаем сырых ботов. Мы внедряем обученного сотрудника, который точно знает регламенты вашего автобизнеса.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        
+        <!-- Feature 1 -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Мгновенный контакт 24/7</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Перехватывает заявки из Авито, Авто.ру, Telegram, WhatsApp и сайта за 10–20 секунд. Пока клиент еще держит телефон в руках.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+            <i data-lucide="coins" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Калькулятор «Под ключ»</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            В реальном времени считает стоимость авто: цена на аукционе, конвертация по курсу дня, логистика, таможенная очистка, СБКТС и утильсбор.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+            <i data-lucide="filter" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Скоринг и квалификация</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Узнает реальный бюджет, готовность внести аванс, способ оплаты (нал, безнал с НДС, лизинг, кредит). Отсеивает неплатежеспособных.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Модуль Trade-In</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Запрашивает параметры старого авто (год, пробег, комплектация, дефекты), рассчитывает вилку выкупа в счет нового авто под заказ.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+            <i data-lucide="target" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Умный автодожим</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Если клиент взял паузу «подумать», ИИ ненавязчиво присылает свежие лоты с аукциона, сообщает о падении курса валюты и бронировании автовозов.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+            <i data-lucide="layout-grid" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Бесшовная интеграция с CRM</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Мгновенно создает сделку в amoCRM или Bitrix24, заполняет все поля (марка, бюджет, город), прикрепляет аудиозапись и транскрипт диалога.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Comparison: AI vs Human Manager -->
+  <section id="comparison" class="py-16 md:py-20 bg-white border-y border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-sky-600 mb-2">Честное сравнение</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Штатный менеджер vs AutoAgent AI</p>
+      </div>
+
+      <div class="max-w-4xl mx-auto overflow-x-auto rounded-2xl border border-slate-200 shadow-sm bg-white">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm min-w-[500px]">
+          <thead>
+            <tr class="border-b border-slate-200 bg-slate-50/80">
+              <th class="p-3.5 sm:p-5 font-bold text-slate-700">Критерий</th>
+              <th class="p-3.5 sm:p-5 font-bold text-slate-500 w-1/3">Штатный менеджер</th>
+              <th class="p-3.5 sm:p-5 font-bold text-sky-600 w-1/3 bg-sky-50/50">AutoAgent AI</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr>
+              <td class="p-3.5 sm:p-5 font-medium text-slate-900">Скорость ответа лиду</td>
+              <td class="p-3.5 sm:p-5 text-slate-600">15 – 45 минут (в рабочее время)</td>
+              <td class="p-3.5 sm:p-5 font-semibold text-emerald-600 bg-sky-50/30">10 – 20 секунд 24/7/365</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 font-medium text-slate-900">Работа в ночные часы и выходные</td>
+              <td class="p-3.5 sm:p-5 text-slate-600">Нет (лиды копятся и остывают)</td>
+              <td class="p-3.5 sm:p-5 font-semibold text-emerald-600 bg-sky-50/30">Да (подхват заявок из любых часовых поясов)</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 font-medium text-slate-900">Точность расчета пошлин и утиля</td>
+              <td class="p-3.5 sm:p-5 text-slate-600">Периодические ошибки в спешке</td>
+              <td class="p-3.5 sm:p-5 font-semibold text-emerald-600 bg-sky-50/30">100% точность по официальным формулам</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 font-medium text-slate-900">Стоимость содержания</td>
+              <td class="p-3.5 sm:p-5 text-slate-600">Оклад + % + налоги (100–160 тыс. ₽)</td>
+              <td class="p-3.5 sm:p-5 font-semibold text-emerald-600 bg-sky-50/30">От 29 000 ₽ / мес без больничных</td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-5 font-medium text-slate-900">Безопасность клиентской базы</td>
+              <td class="p-3.5 sm:p-5 text-slate-600">Риск увода контактов при увольнении</td>
+              <td class="p-3.5 sm:p-5 font-semibold text-emerald-600 bg-sky-50/30">Полная конфиденциальность в вашей CRM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- How It Works (3 Steps) -->
+  <section id="how-it-works" class="py-16 md:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-sky-600 mb-2">Простой запуск</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Как мы подключаем ИИ к вашему бизнесу за 24 часа</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative">
+        
+        <!-- Step 1 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7 relative">
+          <div class="w-8 h-8 rounded-lg bg-sky-600 text-white font-bold flex items-center justify-center text-sm mb-4">1</div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Загружаем ваши регламенты</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Вы передаете нам калькулятор растаможки, прайсы на логистику и правила работы (Китай, Корея, Европа или Trade-In). Мы обучаем ИИ за 1 день.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7 relative">
+          <div class="w-8 h-8 rounded-lg bg-sky-600 text-white font-bold flex items-center justify-center text-sm mb-4">2</div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Пилотный запуск без рисков</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Подключаем ИИ к вашим каналам (Авито, Telegram, телефония или база отказников). Система отрабатывает первые 100 обращений, чтобы вы оценили конверсию.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7 relative">
+          <div class="w-8 h-8 rounded-lg bg-sky-600 text-white font-bold flex items-center justify-center text-sm mb-4">3</div>
+          <h4 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Брокеры закрывают сделки</h4>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Ваши брокеры созваниваются только с квалифицированными покупателями, у которых уже сформирован расчет под ключ и подтвержден бюджет.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ / Overcoming Fears -->
+  <section id="faq" class="py-16 md:py-20 bg-[#FBFBFD] border-t border-slate-200/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-xs uppercase font-bold tracking-wider text-sky-600 mb-2">Ответы на вопросы</h2>
+        <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900">Часто задаваемые вопросы руководителей</p>
+      </div>
+
+      <div class="space-y-3.5 sm:space-y-4">
+        
+        <!-- Accordion 1 -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 transition-all">
+          <button class="w-full flex items-center justify-between text-left font-bold text-slate-900 text-sm sm:text-base gap-3" onclick="toggleFaq(this)">
+            <span>Что если ИИ ошибется в расчете таможни или утильсбора?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform"></i>
+          </button>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed hidden">
+            ИИ не выдумывает цифры «из головы». Мы жестко интегрируем его с вашим официальным внутренним калькулятором и актуальными таможенными ставками. Каждая формула, объем двигателя и льготные/коммерческие коэффициенты утилизационного сбора строго регламентированы. Перед выдачей расчета он проверяет вводные данные клиента.
+          </div>
+        </div>
+
+        <!-- Accordion 2 -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 transition-all">
+          <button class="w-full flex items-center justify-between text-left font-bold text-slate-900 text-sm sm:text-base gap-3" onclick="toggleFaq(this)">
+            <span>Не распугает ли робот платежеспособных клиентов на машины за 10+ млн ₽?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform"></i>
+          </button>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed hidden">
+            Покупателя за 10 млн рублей больше всего раздражает ожидание ответа по 40 минут. Наш ИИ отвечает за 15 секунд, демонстрирует глубокое понимание комплектаций (например, отличия Li L7/L9 Pro от Max/Ultra) и вежливо переводит на персонального брокера для согласования договора. Вы можете сами оценить уровень диалога, позвонив по номеру на сайте.
+          </div>
+        </div>
+
+        <!-- Accordion 3 -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 transition-all">
+          <button class="w-full flex items-center justify-between text-left font-bold text-slate-900 text-sm sm:text-base gap-3" onclick="toggleFaq(this)">
+            <span>Как устроен бесплатный тест-драйв на 100 лидов?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform"></i>
+          </button>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed hidden">
+            Без скрытых платежей и без привязки банковской карты. Мы настраиваем систему под ваши прайсы и даем вам возможность проверить её в бою: выгрузить 100 старых заявок из CRM или пустить свежий трафик. Когда вы увидите конверсию в реальные договоры, мы обсуждаем дальнейший формат подписки.
+          </div>
+        </div>
+
+        <!-- Accordion 4 -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 transition-all">
+          <button class="w-full flex items-center justify-between text-left font-bold text-slate-900 text-sm sm:text-base gap-3" onclick="toggleFaq(this)">
+            <span>Сложно ли подключить к нашей amoCRM или Bitrix24?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 shrink-0 transition-transform"></i>
+          </button>
+          <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed hidden">
+            Интеграция занимает 1 рабочий день. Мы предоставляем готовый коннектор для amoCRM / Bitrix24 и настраиваем передачу данных «под ключ»: от распределения по этапам воронки до прикрепления аудиозаписей диалогов к карточке клиента.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lead Capture / Test Drive Section -->
+  <section id="testdrive" class="py-16 md:py-20 bg-white border-t border-slate-200/80 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-gradient-to-b from-slate-900 to-dark-900 rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-12 text-white shadow-2xl relative overflow-hidden">
+        <!-- Decoration background -->
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-semibold mb-3">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            Пилотный запуск
+          </div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">Подключите тест-драйв для вашего автобизнеса</h2>
+          <p class="mt-3 text-xs sm:text-sm md:text-base text-slate-300">
+            Оставьте заявку. Мы настроим логику под ваши направления (Китай, Корея, Европа или Trade-In), загрузим ваши формулы и бесплатно обработаем первые 100 обращений.
+          </p>
+        </div>
+
+        <form id="lead-form" onsubmit="handleFormSubmit(event)" class="max-w-xl mx-auto space-y-3.5 sm:space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Ваше имя</label>
+              <input type="text" required placeholder="Константин" class="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1">Телефон / WhatsApp</label>
+              <input type="tel" required placeholder="+7 (999) 000-00-00" class="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Направление автобизнеса</label>
+            <select class="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="china">Пригон авто из Китая (Li Auto, Zeekr, Voyah, Geely)</option>
+              <option value="korea">Авто из Кореи (Encar, дизель, Kia/Hyundai)</option>
+              <option value="europe">Европа / Германия (BMW, VAG, Porsche)</option>
+              <option value="uae_usa">ОАЭ / США / Грузия</option>
+              <option value="tradein">Trade-In площадка / Автосалон с пробегом</option>
+              <option value="mixed">Смешанный автобизнес</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-slate-900 bg-white hover:bg-slate-100 shadow-lg shadow-sky-500/10 hover:-translate-y-0.5 transition-all">
+            Получить доступ к пилоту
+          </button>
+
+          <p class="text-center text-[11px] sm:text-xs text-slate-400 pt-2">
+            🔒 Без спама и без привязки карты. Свяжемся в течение 15 минут в рабочее время.
+          </p>
+        </form>
+
+        <div id="form-success-msg" class="hidden text-center p-6 bg-emerald-900/40 border border-emerald-500/40 rounded-2xl mt-4">
+          <i data-lucide="check-circle" class="w-10 h-10 text-emerald-400 mx-auto mb-2"></i>
+          <h4 class="text-base sm:text-lg font-bold text-white">Заявка успешно принята!</h4>
+          <p class="text-xs text-slate-300 mt-1">Мы свяжемся с вами в Telegram/WhatsApp для согласования пилотного подключения.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-8 sm:py-10 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-[10px]">AI</div>
+        <span class="font-bold text-slate-800">AutoAgent.AI</span>
+        <span>— ИИ-отдел продаж для автоимпорта и Trade-In</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Линия ИИ-ассистента: <a href="tel:+78005553535" class="font-bold text-slate-800 hover:text-sky-600">+7 (800) 555-35-35</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconBars = document.getElementById('menu-icon-bars');
+      const iconClose = document.getElementById('menu-icon-close');
+      
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        iconBars.classList.add('hidden');
+        iconClose.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        iconBars.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const iconBars = document.getElementById('menu-icon-bars');
+      const iconClose = document.getElementById('menu-icon-close');
+      if (menu) menu.classList.add('hidden');
+      if (iconBars) iconBars.classList.remove('hidden');
+      if (iconClose) iconClose.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
